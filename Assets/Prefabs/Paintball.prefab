@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7fd86f3624573d44973589bcd2d172e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwForce: 10
+  throwForce: 15
   decalPrefab: {fileID: 2482512653712949509, guid: 4ff9ff480792c844c8ddc334f72d9277, type: 3}
   decalOffset: -1
 --- !u!1001 &9139864495802512068
