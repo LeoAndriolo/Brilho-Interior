@@ -120,7 +120,7 @@ Rigidbody:
   m_GameObject: {fileID: 1158536241276926334}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -135,7 +135,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &-2100852747809792406
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7fd86f3624573d44973589bcd2d172e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwForce: 15
+  throwForce: 20
   decalPrefab: {fileID: 2482512653712949509, guid: 4ff9ff480792c844c8ddc334f72d9277, type: 3}
   decalOffset: -1
 --- !u!1001 &9139864495802512068
