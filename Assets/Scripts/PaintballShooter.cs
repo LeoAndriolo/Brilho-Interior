@@ -10,7 +10,7 @@ public class PaintballShooter : MonoBehaviour
     public float maxAnxiety = 100f;
     public float anxiety;
     public float anxietyDepletion = 10f; // How much anxiety is lost per shot
-    public float anxietyRegenRate = 5f; // Anxiety regenerated per second
+    public float anxietyRegenRate = 10f; // Anxiety regenerated per second
     public Image anxietyBarUI; // Assign in the inspector
 
     private void Start()
@@ -32,10 +32,11 @@ public class PaintballShooter : MonoBehaviour
             anxietyBarUI.fillAmount = anxiety / maxAnxiety;
 
         // Shooting logic
-        if (Input.GetMouseButtonDown(0) && anxiety >= anxietyDepletion) // Only shoot if anxiety is sufficient
+        if (Input.GetMouseButtonDown(0) && anxiety >= anxietyDepletion && !PauseMenu.isPaused) // Only shoot if anxiety is sufficient
         {
             Shoot();
         }
+
     }
 
     private void Shoot()
