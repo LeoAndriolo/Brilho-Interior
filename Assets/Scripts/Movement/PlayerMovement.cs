@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump;
+    public bool hasDoubleJumpUpgrade = false;
+    private bool doubleJumpUsed = false;
 
     [Header("Crouching")]
     public float crouchSpeed;
@@ -84,11 +86,15 @@ public class PlayerMovement : MonoBehaviour
     {
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
+        if (grounded)
+        {
+            doubleJumpUsed = false;
+        }
+        
         MyInput();
         SpeedControl();
         StateHandler();
 
-        // handle drag
         if (grounded)
             rb.linearDamping = groundDrag;
         else
@@ -105,31 +111,42 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        // Check if jump key was pressed
+        if (Input.GetKeyDown(jumpKey))
         {
-            readyToJump = false;
-            Jump();
-            Invoke(nameof(ResetJump), jumpCooldown);
-        }
+            if (grounded && readyToJump)
+            {
+                // First jump when on the ground
+                readyToJump = false;
+                Jump();
+                Invoke(nameof(ResetJump), jumpCooldown);
 
-        // Crouching: only if grounded
+                // Reset double jump usage when starting from the ground
+                doubleJumpUsed = false;
+            }
+            // Allow double jump if the player is in the air, has the upgrade, and hasn't double jumped yet.
+            else if (!grounded && hasDoubleJumpUpgrade && !doubleJumpUsed)
+            {
+                DoubleJump();
+                doubleJumpUsed = true;
+            }
+        }
+        
+        // Crouch code remains unchanged
         if (Input.GetKeyDown(crouchKey) && horizontalInput == 0 && verticalInput == 0)
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-
             crouching = true;
         }
         
-        // stop crouch
         if (Input.GetKeyUp(crouchKey))
         {
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-
             crouching = false;
         }
     }
+
 
     private void StateHandler()
     {
@@ -269,6 +286,16 @@ public class PlayerMovement : MonoBehaviour
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
+
+    private void DoubleJump()
+    {
+        // Zero the vertical velocity to avoid stacking forces
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        
+        // Apply the jump force upward
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+
 
     private void ResetJump()
     {
