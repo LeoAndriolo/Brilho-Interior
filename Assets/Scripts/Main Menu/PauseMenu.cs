@@ -3,46 +3,62 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    public static PauseMenu instance;
     public GameObject pauseMenu;
     public static bool isPaused;
 
+    // private void Awake()
+    // {
+    //     if (instance == null)
+    //     {
+    //         instance = this;
+    //         DontDestroyOnLoad(gameObject);
+    //     }
+    //     else
+    //     {
+    //         Destroy(gameObject);
+    //     }
+    // }
+
     void Start()
     {
+        isPaused = false;
         pauseMenu.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
-            {
                 ResumeGame();
-            }
             else
-            {
                 PauseGame();
-            }
         }
     }
 
     public void PauseGame()
     {
-        pauseMenu.SetActive(true);
-        Time.timeScale = 0;
-        isPaused = true;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        if (pauseMenu != null)
+        {
+            pauseMenu.SetActive(true);
+            Time.timeScale = 0;
+            isPaused = true;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 
     public void ResumeGame()
     {
-        pauseMenu.SetActive(false);
-        Time.timeScale = 1;
-        isPaused = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if (pauseMenu != null)
+        {
+            pauseMenu.SetActive(false);
+            Time.timeScale = 1;
+            isPaused = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     public void GoToMainMenu()
