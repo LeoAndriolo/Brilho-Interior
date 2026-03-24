@@ -23,7 +23,7 @@ O protagonista vive em um mundo monocromático e encontra forças para transform
 
 ## Jogue Agora
 
-Confira o jogo em nossa página no [Itch.io](https://seu-jogo.itch.io).
+Confira o jogo em nossa página no [Itch.io](https://leoandriolo.itch.io/brilho-interior).
 
 ---
 
