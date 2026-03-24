@@ -7,23 +7,23 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenu;
     public static bool isPaused;
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    // private void Awake()
+    // {
+    //     if (instance == null)
+    //     {
+    //         instance = this;
+    //         DontDestroyOnLoad(gameObject);
+    //     }
+    //     else
+    //     {
+    //         Destroy(gameObject);
+    //     }
+    // }
 
     void Start()
     {
-        Time.timeScale = 1;
-
+        isPaused = false;
+        pauseMenu.SetActive(false);
     }
 
     void Update()
